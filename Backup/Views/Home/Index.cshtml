@@ -1,0 +1,52 @@
+﻿@model WeatherApplication.ViewModels.HomeIndexViewModel
+@{
+    ViewBag.Title = "Ulf Weather";
+}
+<h2>
+    Väderprognos</h2>
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(false, "Följande fel inträffade:")
+    
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.ScreenName)
+    </div>
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.ScreenName)
+    </div>
+
+    <p>
+        <input type="submit" value="Search" />
+    </p>
+   
+}
+@if (Model != null && Model.Geoname.Any())
+{ 
+   
+    
+    <div id="location">
+        @foreach (var location in Model.Geoname)
+        { 
+            <h2>
+                @location.Name</h2>
+            <br />
+       
+            <div id="country">
+                <h2>@location.Country</h2>
+            </div>
+            <br />
+            <div id="county">
+                <h2>@location.County</h2>
+                
+            </div>
+            <br />
+            @Html.ActionLink("Se väderprognos", "Weather", location);
+        
+       
+            <br />
+        }
+    </div>
+}

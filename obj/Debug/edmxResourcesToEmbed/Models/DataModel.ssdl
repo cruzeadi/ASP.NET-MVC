@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="WP11_cu222ai_WeatherModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="WP11_cu222ai_WeatherModelStoreContainer">
+    <EntitySet Name="Geoname" EntityType="WP11_cu222ai_WeatherModel.Store.Geoname" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Weather" EntityType="WP11_cu222ai_WeatherModel.Store.Weather" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_Weather_Geoname" Association="WP11_cu222ai_WeatherModel.Store.FK_Weather_Geoname">
+      <End Role="Geoname" EntitySet="Geoname" />
+      <End Role="Weather" EntitySet="Weather" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Geoname">
+    <Key>
+      <PropertyRef Name="LocationID" />
+    </Key>
+    <Property Name="LocationID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Country" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="County" Type="varchar" Nullable="false" MaxLength="70" />
+    <Property Name="Name" Type="varchar" Nullable="false" MaxLength="70" />
+    <Property Name="NextUpdate" Type="datetime2" Precision="0" />
+  </EntityType>
+  <EntityType Name="Weather">
+    <Key>
+      <PropertyRef Name="WeatherID" />
+    </Key>
+    <Property Name="WeatherID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="LocationID" Type="int" Nullable="false" />
+    <Property Name="Temperature" Type="varchar" Nullable="false" MaxLength="60" />
+    <Property Name="Symbol" Type="varchar" Nullable="false" MaxLength="100" />
+    <Property Name="Time" Type="datetime" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Weather_Geoname">
+    <End Role="Geoname" Type="WP11_cu222ai_WeatherModel.Store.Geoname" Multiplicity="1" />
+    <End Role="Weather" Type="WP11_cu222ai_WeatherModel.Store.Weather" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Geoname">
+        <PropertyRef Name="LocationID" />
+      </Principal>
+      <Dependent Role="Weather">
+        <PropertyRef Name="LocationID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="usp_createLocation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="appSchema">
+    <Parameter Name="Country" Type="varchar" Mode="In" />
+    <Parameter Name="County" Type="varchar" Mode="In" />
+    <Parameter Name="Name" Type="varchar" Mode="In" />
+    <Parameter Name="NextUpdate" Type="datetime2" Mode="In" />
+  </Function>
+  <Function Name="usp_createWeather" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="appSchema">
+    <Parameter Name="LocationID" Type="int" Mode="In" />
+    <Parameter Name="Temperature" Type="varchar" Mode="In" />
+    <Parameter Name="Symbol" Type="varchar" Mode="In" />
+    <Parameter Name="Time" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="usp_deleteLocation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="appSchema">
+    <Parameter Name="LocationID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="usp_deleteWeather" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="appSchema">
+    <Parameter Name="WeatherID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="usp_selectLocation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="appSchema" />
+  <Function Name="usp_selectLocations" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="appSchema" />
+  <Function Name="usp_selectWeather" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="appSchema" />
+  <Function Name="usp_selectWeathers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="appSchema" />
+  <Function Name="usp_updateLocation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="appSchema">
+    <Parameter Name="LocationID" Type="int" Mode="In" />
+    <Parameter Name="Country" Type="varchar" Mode="In" />
+    <Parameter Name="County" Type="varchar" Mode="In" />
+    <Parameter Name="Name" Type="varchar" Mode="In" />
+    <Parameter Name="NextUpdate" Type="datetime2" Mode="In" />
+  </Function>
+  <Function Name="usp_updateWeather" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="appSchema">
+    <Parameter Name="WeatherID" Type="int" Mode="In" />
+    <Parameter Name="LocationID" Type="int" Mode="In" />
+    <Parameter Name="Temperature" Type="varchar" Mode="In" />
+    <Parameter Name="Symbol" Type="varchar" Mode="In" />
+    <Parameter Name="Time" Type="datetime" Mode="In" />
+  </Function>
+</Schema>

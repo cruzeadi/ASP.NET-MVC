@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="WP11_cu222ai_WeatherModelStoreContainer" CdmEntityContainer="WP11_cu222ai_WeatherEntities2">
+    <EntitySetMapping Name="Geonames">
+      <EntityTypeMapping TypeName="WP11_cu222ai_WeatherModel.Geoname">
+        <MappingFragment StoreEntitySet="Geoname">
+          <ScalarProperty Name="LocationID" ColumnName="LocationID" />
+          <ScalarProperty Name="Country" ColumnName="Country" />
+          <ScalarProperty Name="County" ColumnName="County" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="NextUpdate" ColumnName="NextUpdate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="WP11_cu222ai_WeatherModel.Geoname">
+        <ModificationFunctionMapping>
+          <InsertFunction FunctionName="WP11_cu222ai_WeatherModel.Store.usp_createLocation">
+            <ScalarProperty Name="NextUpdate" ParameterName="NextUpdate" />
+            <ScalarProperty Name="Name" ParameterName="Name" />
+            <ScalarProperty Name="County" ParameterName="County" />
+            <ScalarProperty Name="Country" ParameterName="Country" />
+            <ResultBinding Name="LocationID" ColumnName="NewLocationID" />
+          </InsertFunction>
+          <DeleteFunction FunctionName="WP11_cu222ai_WeatherModel.Store.usp_deleteLocation">
+            <ScalarProperty Name="LocationID" ParameterName="LocationID" />
+          </DeleteFunction>
+          <UpdateFunction FunctionName="WP11_cu222ai_WeatherModel.Store.usp_updateLocation">
+            <ScalarProperty Name="NextUpdate" ParameterName="NextUpdate" Version="Current" />
+            <ScalarProperty Name="Name" ParameterName="Name" Version="Current" />
+            <ScalarProperty Name="County" ParameterName="County" Version="Current" />
+            <ScalarProperty Name="Country" ParameterName="Country" Version="Current" />
+            <ScalarProperty Name="LocationID" ParameterName="LocationID" Version="Current" />
+          </UpdateFunction>
+        </ModificationFunctionMapping>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Weathers">
+      <EntityTypeMapping TypeName="WP11_cu222ai_WeatherModel.Weather">
+        <MappingFragment StoreEntitySet="Weather">
+          <ScalarProperty Name="WeatherID" ColumnName="WeatherID" />
+          <ScalarProperty Name="LocationID" ColumnName="LocationID" />
+          <ScalarProperty Name="Temperature" ColumnName="Temperature" />
+          <ScalarProperty Name="Symbol" ColumnName="Symbol" />
+          <ScalarProperty Name="Time" ColumnName="Time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="WP11_cu222ai_WeatherModel.Weather">
+        <ModificationFunctionMapping>
+          <InsertFunction FunctionName="WP11_cu222ai_WeatherModel.Store.usp_createWeather">
+            <ScalarProperty Name="Time" ParameterName="Time" />
+            <ScalarProperty Name="Symbol" ParameterName="Symbol" />
+            <ScalarProperty Name="Temperature" ParameterName="Temperature" />
+            <ScalarProperty Name="LocationID" ParameterName="LocationID" />
+            <ResultBinding Name="WeatherID" ColumnName="NewWeatherID" />
+          </InsertFunction>
+          <UpdateFunction FunctionName="WP11_cu222ai_WeatherModel.Store.usp_updateWeather">
+            <ScalarProperty Name="Time" ParameterName="Time" Version="Current" />
+            <ScalarProperty Name="Symbol" ParameterName="Symbol" Version="Current" />
+            <ScalarProperty Name="Temperature" ParameterName="Temperature" Version="Current" />
+            <ScalarProperty Name="LocationID" ParameterName="LocationID" Version="Current" />
+            <ScalarProperty Name="WeatherID" ParameterName="WeatherID" Version="Current" />
+          </UpdateFunction>
+          <DeleteFunction FunctionName="WP11_cu222ai_WeatherModel.Store.usp_deleteWeather">
+            <ScalarProperty Name="WeatherID" ParameterName="WeatherID" />
+          </DeleteFunction>
+        </ModificationFunctionMapping>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
